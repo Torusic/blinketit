@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"
 import verifyEmailTemplate from "../utils/verifyEmailTemplate.js";
 import generatedAccessToken from "../utils/generatedAccessToken.js";
 import generatedRefreshToken from "../utils/generatedRefreshToken.js";
-
+import uploadImageClodinary from "../utils/uploadImageClodinary.js"
 export async function registerUserController(req,res){
     try{
         
@@ -185,6 +185,11 @@ export async function logoutController(req,res){
         res.clearCookie("accessToken",cookiesOptions)
         res.clearCookie("refreshTokn",cookiesOptions)
 
+        const removeRefreshToken=await userModel.findByIdAndUpdate(userId,{
+            refresh_token:""
+
+        })
+
         return res.status(200).json({
             message:"User logged out Successfully",
             error:false,
@@ -196,6 +201,35 @@ export async function logoutController(req,res){
             message:error.message||error,
             error:true,
             success:false
+        })
+    }
+}
+ 
+export async function uploadAvatar(req,res){
+    try{
+        const userId=req.userId;
+        const image = req.file;
+
+        const upload=await uploadImageClodinary(image);
+
+        const updateUser=await userModel.findByIdAndUpdate(userId,{
+            avatar:upload.url,
+        })
+
+        return res.json({
+            message:"Upload profile",
+            data:{
+                _id:userId,
+                avatar:upload.url
+            },
+        })
+
+    }catch(error){
+        return res.status(500).json({
+            message:error.message,
+            error:true,
+            success:false
+
         })
     }
 }
