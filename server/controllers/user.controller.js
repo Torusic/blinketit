@@ -7,6 +7,8 @@ import generatedRefreshToken from "../utils/generatedRefreshToken.js";
 import uploadImageClodinary from "../utils/uploadImageClodinary.js"
 import generatedOtp from "../utils/generatedOtp.js";
 import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
+import jwt from "jsonwebtoken";
+
 export async function registerUserController(req,res){
     try{
         
@@ -397,8 +399,8 @@ export async function resetPassword(req,res){
             })
 
         }
-        const salt =await bcryptjs.genSalt(10);
-        const hashedPassword=await bcryptjs.hash(newPassword,salt);
+        const salt =await bcrypt.genSalt(10);
+        const hashedPassword=await bcrypt.hash(newPassword,salt);
 
         const update=await userModel.findOneAndUpdate(user._id,{
             password:hashedPassword,
@@ -424,3 +426,55 @@ export async function resetPassword(req,res){
         })
     }
 }
+export async function refreshToken(req,res){
+    try{
+        const refreshToken=req.cookies.refreshToken || req?.header?.authorization?.split(" ")[1];
+
+        if(!refreshToken){
+            return res.status(401).json({
+                message:"Invalid token",
+                error:true,
+                success:false
+            })
+        }
+        const verifyToken=await jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH_TOKEN);
+
+        if(!verifyToken){
+            return res.status(401).json({
+                message:"Token has expired",
+                error:true,
+                success:false
+            })
+        }
+        
+        const userId=verifyToken?._id;
+        const newAccessToken=await generatedAccessToken(userId);
+    
+
+        const cookiesOptions={
+            httpOnly:true,
+            secure:true,
+            sameSite:"None",
+
+        }
+
+        res.cookie("accessToken",newAccessToken,cookiesOptions)
+
+        return res.status(200).json({
+            message:"New acces token generated",
+            error:false,
+            success:true,
+            date:{
+                accessToken:newAccessToken
+            }
+        })
+
+    }catch(error){
+        return res.status9(500).json({
+            message:error.message||error,
+            error:true,
+            success:false
+        })
+    }
+}
+

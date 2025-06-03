@@ -8,11 +8,11 @@ cloudinary.config({
 const uploadImageClodinary=async(image)=>{
     const buffer=image?.buffer||Buffer.from(await image.arrayBuffer())
 
-    const uploadImage=await new Promise((reslove,reject)=>{
+    const uploadImage=await new Promise((resolve,reject)=>{
         cloudinary.uploader.upload_stream({
             folder:"binkeyit"},
             (error,uploadResult)=>{
-                return reslove(uploadResult)
+                return resolve(uploadResult)
             }
         ).end(buffer)
 
