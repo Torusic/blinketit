@@ -9,13 +9,13 @@ const Footer = () => {
              <p>©All rights reserved 2025</p>
         
         <div className='flex items-center gap-4 justify-center text-2xl'>
-             <a href=""className='hover:text-[#ffc929]'>
+             <a href=""className='hover:text-[#ec4899]'>
                 <FaFacebook/>
              </a>
-             <a href=""className='hover:text-[#ffc929]' >
+             <a href=""className='hover:text-[#ec4899]' >
                 <FaInstagram/>
              </a>
-             <a href=""className='hover:text-[#ffc929]' >
+             <a href=""className='hover:text-[#ec4899]' >
                 <FaLinkedin/>
              </a>
 
