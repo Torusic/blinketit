@@ -9,7 +9,7 @@ const forgotPasswordTemplate=({name,otp})=>{
        <br/>
        </br>
        <p> Thanks</p>
-       <p> Binkeyit Team</p>
+       <p> EasyShop Team</p>
     </div>
     `
 }

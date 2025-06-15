@@ -26,11 +26,6 @@ app.use(helmet({
 const PORT= 8080|process.env.PORT
 
 
-app.get('/',(req,res)=>{
-    res.json({
-        message:'Server is running'
-    })
-})
 app.use('/api/user',userRouter)
 connectDb().then(()=>{
     app.listen(PORT,()=>{

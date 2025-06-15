@@ -18,7 +18,34 @@ const SummaryApi={
         url:"/api/user/verify-forgot-password-otp",
         method:'put'
 
+    },
+    resetPassword:{
+        url:"/api/user/reset-password",
+        method:"put"
+    },
+    refreshToken:{
+        url:"/api/user/refresh-token",
+        method:"post"
+    },
+    userDetails:{
+        url:"/api/user/user-details",
+        method:"get"
+    },
+    logout:{
+        url:"/api/user/logout",
+        method:"get"
+    },
+    uploadAvatar:{
+        url:"/api/user/upload-avatar",
+        method:"put"
+    },
+    updateUser:{
+        url:"/api/user/update-user",
+        method:"put"
+
+
     }
+    
 
 
 }

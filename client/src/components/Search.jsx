@@ -23,7 +23,8 @@ const redirectToSearchPage=()=>{
 
 
   return (
-    <div className='w-full min-w-[300px] lg:min-w-[420px]h-11 lg:h-12 rounded-lg border overflow-hidden flex items-center text-neutral-500 bg-slate-100 focus-within:border-[#ec4899]'>
+    
+    <div className=' w-[300px] lg:min-w-[420px]h-11  lg:h-12 rounded-lg border overflow-hidden flex items-center text-neutral-500 bg-slate-100 focus-within:border-[#ec4899]'>
       
       {
         (isMobile && isSearchPage)?(
@@ -32,7 +33,7 @@ const redirectToSearchPage=()=>{
 
       </Link> 
         ):(
-          <button className='flex justify-center items-center  h-full p-3 focus-within:text-[#ec4899]'>
+          <button className='flex justify-center items-center   h-full p-3 focus-within:text-[#ec4899]'>
         <FaSearch size={22}/>
          </button>
         )

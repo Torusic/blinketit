@@ -144,6 +144,10 @@ export async function loginUserController(req,res){
         const accessToken=await generatedAccessToken(user._id);
         const refreshToken=await generatedRefreshToken(user._id);
 
+        const updateUser=await userModel.findByIdAndUpdate(user?._id,{
+            last_login_date:new Date()
+        })
+
         const cookiesOptions={
             httpOnly:true,
             secure:true,
@@ -222,6 +226,8 @@ export async function uploadAvatar(req,res){
 
         return res.json({
             message:"Upload profile",
+            success:true,
+            error:false,
             data:{
                 _id:userId,
                 avatar:upload.url
@@ -259,7 +265,7 @@ export async function updateUserDetails(req,res){
 
         })
         return res.status(200).json({
-            message:"User Updated Succesfully",
+            message:" Updated Succesfully",
             error:false,
             success:true,
             data:updateUser
@@ -295,7 +301,7 @@ export async function forgotPasswordController(req,res){
         })
         await sendEmail({
             sendTo:email,
-            subject:"Forgot Password from Binkeyit",
+            subject:"Forgot Password from EasyShop",
             html:forgotPasswordTemplate({
                 name:user.name,
                 otp:otp
@@ -355,6 +361,10 @@ export async function verifyForgotPasswordOtp(req,res){
                 success:false
             })
         }
+        const updateUser=await userModel.findByIdAndUpdate(user?._id,{
+            forgot_password_otp:"",
+            forgot_password_expiry:""
+        })
         return res.status(200).json({
             message:"OTP verified successfully",
             error:false,
@@ -428,7 +438,7 @@ export async function resetPassword(req,res){
 }
 export async function refreshToken(req,res){
     try{
-        const refreshToken=req.cookies.refreshToken || req?.header?.authorization?.split(" ")[1];
+        const refreshToken=req.cookies.refreshToken || req?.headers?.authorization?.split(" ")[1];
 
         if(!refreshToken){
             return res.status(401).json({
@@ -475,6 +485,31 @@ export async function refreshToken(req,res){
             error:true,
             success:false
         })
+    }
+}
+
+export async function userDetails(req,res){
+    try {
+        const userId=req.userId;
+
+        console.log(userId)
+
+        const user=await userModel.findById(userId).select('-password -refresh_token');
+
+        return res.status(200).json({
+            message:"User Details",
+            data:user,
+            error:false,
+            success:true
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message:"Something Went Wrong",
+            error:true,
+            success:false
+        })
+        
     }
 }
 

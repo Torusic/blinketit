@@ -8,6 +8,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import SummaryApi from '../common/SummaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import Axios from '../utils/Axios';
+import fetchUserDetails from '../utils/fetchUserDetails'
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../store/userSlice';
 
 const Login = () => {
     const[data,setData]=useState({
@@ -19,6 +22,7 @@ const Login = () => {
     const[showPassword,setShowPassword]=useState(false)
     
     const navigate=useNavigate()
+    const dispatch=useDispatch()
     const handleChange=(e)=>{
         const {name,value}=e.target
 
@@ -33,22 +37,21 @@ const Login = () => {
     }
     const handleSubmit=async(e)=>{
         e.preventDefault()
-
-       
-
        
       try {
          const response= await Axios ({
         ...SummaryApi.login,
         data: data
-      
-
     }) 
     if(response.data.error){
-        toast.error(response.data.error)
+        toast.error(response.data.message)
     }
     if(response.data.success){
         toast.success(response.data.message)
+        localStorage.setItem("accessToken",response.data.data.accessToken)
+        localStorage.setItem("refreshToken",response.data.data.refreshToken)
+        const userDetails=await fetchUserDetails()
+        dispatch(setUserDetails(userDetails.data))
         setData({
            
             email:"",

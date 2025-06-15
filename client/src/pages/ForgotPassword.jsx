@@ -52,7 +52,7 @@ const ForgotPassword= () => {
         
         navigate("/verification-otp",{
             state:data
-        })
+        })                           
         setData({
            
             email:"",

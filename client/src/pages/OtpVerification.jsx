@@ -44,7 +44,12 @@ const OtpVerification = () => {
     if(response.data.success){
         toast.success(response.data.message)
         setData(["","","","","",""])
-       // navigate("/verification-otp");
+        navigate("/reset-password",{
+            state:{
+                data: response.data,
+                email:location?.state?.email
+            }
+        });
     }
     console.log("response",response)
          
@@ -55,14 +60,14 @@ const OtpVerification = () => {
     }
     const validate=data.every(el=>el)
   return (
-    <section className=' w-120 container mx-auto h-120 my-auto px-12'>
+    <section className=' w-100 lg:w-120 container mx-auto h-10 lg:h-120  px-12'>
         <div className='bg-white my-4 w-full max-w-lg mx-auto rounded p-2'>
            <img src={logo} alt=""width={80}height={40} /> 
             <p className='flex items-center text-2xl font-bold text-slate-600 mb-2  '>Enter OTP</p>
             <form action=""className='grid gap-5 mt-6' onSubmit={handleSubmit}>
                
                 <div className='grid'>
-                    <label htmlFor="otp" className=' text-slate-600 mb-5 font-semibold flex items-center justify-center'> OTP :</label>
+                    <label htmlFor="otp" className=' text-slate-600 mb-5 font-semibold flex items-center justify-center'> OTP </label>
                     <div className='flex items-center gap-2  justify-between'>
                         {
                           data.map((element,index)=>{
