@@ -6,6 +6,9 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import connectDb from './config/connectDb.js';
 import userRouter from './route/user.route.js';
+import categoryRouter from './route/category.route.js';
+import uploadRouter from './route/upload.route.js';
+import SubCategoryRouter from './route/subCategory.route.js';
 
 dotenv.config();
 
@@ -27,6 +30,9 @@ const PORT= 8080|process.env.PORT
 
 
 app.use('/api/user',userRouter)
+app.use('/api/category',categoryRouter)
+app.use('/api/file',uploadRouter)
+app.use('/api/subCategory',SubCategoryRouter)
 connectDb().then(()=>{
     app.listen(PORT,()=>{
     console.log(`Server is running on port: ${PORT}`)
