@@ -69,7 +69,7 @@ const handleSubmit=async(e)=>{
 }
 
   return (
-    <div>
+    <div className='px-4'>
       <div className='w-20 h-20 text-pink-600 flex items-center justify-center rounded-full overflow-hidden drop-shadow-sm' >
       {
         user.avatar?(
@@ -98,7 +98,7 @@ const handleSubmit=async(e)=>{
                       <input 
                       type="text"
                       placeholder='Enter your Name'
-                      className='p-2 bg-slate-200 lg:w-full w-80 outline-none rounded border border-pink-400'
+                      className=' bg-blue-50 p-2 border border-blue-100 focus-within:border-pink-400 outline-none rounded'
                       value={userData.name}
                       name='name'
                       onChange={handleOnChange}
@@ -112,7 +112,7 @@ const handleSubmit=async(e)=>{
                       type="email"
                       id='email'
                       placeholder='Enter your Name'
-                      className='p-2 bg-slate-200 lg:w-full w-80 outline-none  rounded border border-pink-400'
+                      className='bg-blue-50 p-2 border border-blue-100 focus-within:border-pink-400 outline-none rounded'
                       value={userData.email}
                       name='email'
                       onChange={handleOnChange}
@@ -125,7 +125,7 @@ const handleSubmit=async(e)=>{
                       type="mobile"
                       id='mobile'
                       placeholder='Enter your Name'
-                      className='p-2 bg-slate-200 lg:w-full w-80  outline-none  rounded border border-pink-400'
+                      className='bg-blue-50 p-2 border border-blue-100 focus-within:border-pink-400 outline-none rounded'
                       value={userData.mobile}
                       name='mobile'
                       onChange={handleOnChange}

@@ -42,7 +42,7 @@ const Header = () => {
 
   console.log("isMobile",isMobile)
   return (
-    <header className='h-24  lg:h-20 lg:shadow-md  sticky top-0 p-9 bg-white  flex  flex-col justify-center gap-1'>
+    <header className='h-24  lg:h-20 lg:shadow-md z-50 sticky top-0 p-9 bg-white  flex  flex-col justify-center gap-1'>
      {
       !(isSearchPage && isMobile ) &&
       (

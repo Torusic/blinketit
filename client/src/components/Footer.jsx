@@ -4,7 +4,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className='border-t'>
+    <footer className='border-t z-50 bg-slate-50'>
         <div className='container mx-auto p-4 text-center flex flex-col lg:flex-row lg:justify-between gap-2 '>
              <p>©All rights reserved 2025</p>
         
